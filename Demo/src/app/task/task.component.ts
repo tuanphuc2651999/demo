@@ -1,12 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-
-
 import { LinkService } from './services/link.service';
 import { TaskService } from './services/task.service';
 import { Task, TaskModelMap } from './models/task';
-
 import moment from "moment";
-
 import { GanttStatic, gantt } from 'dhtmlx-gantt';
 import { LinkModelMap } from './models/link';
 
@@ -15,14 +11,13 @@ import { LinkModelMap } from './models/link';
 	selector: 'task',
 	styleUrls: ['./task.component.scss'],
 	providers: [TaskService, LinkService],
-	template: `<div #gantt_here class='gantt-chart'></div>`,
+	templateUrl: './task.component.html',
 })
 export class TaskComponent implements OnInit {
 	@ViewChild('gantt_here', { static: true }) ganttContainer!: ElementRef;
 	private _gantt?: GanttStatic;
 
 	constructor(private taskService: TaskService, private linkService: LinkService) {
-
 	}
 
 	ngOnInit() {
@@ -39,8 +34,8 @@ export class TaskComponent implements OnInit {
 						isUnscheduled: true,
 						label: data.text,
 						name: data.text,
-						startDate: moment(data.start_date, "YYYY-MM-DD h:mm").toDate(),
-						endDate: moment(data.start_date, "YYYY-MM-DD h:mm").add(5, 'days').toDate(),
+						startDate: data.start_date.slice(0, 10),
+						endDate: data.end_date.slice(0, 10),
 						type: "1"
 
 					}
@@ -57,8 +52,8 @@ export class TaskComponent implements OnInit {
 						isUnscheduled: true,
 						label: data.text,
 						name: data.text,
-						startDate: moment(data.start_date, "YYYY-MM-DD").toDate(),
-						endDate: moment(data.start_date, "YYYY-MM-DD").add(data.duration, 'days').toDate(),
+						startDate: data.start_date.slice(0, 10),
+						endDate: data.end_date.slice(0, 10),
 						type: "1"
 
 					}
@@ -87,9 +82,7 @@ export class TaskComponent implements OnInit {
 				}
 			}
 		});
-
 		this.getData();
-
 	}
 
 	getData() {
@@ -99,14 +92,14 @@ export class TaskComponent implements OnInit {
 		this.taskService.getData("").subscribe((r: Task[]) => {
 			if (r.length > 0) {
 				tasks = r.map(function (e) {
-					const task: TaskModelMap = {
+					let task: TaskModelMap = {
 						id: e.id,
 						text: e.name,
 						start_date: moment(e.startDate).format("YYYY-MM-DD h:mm"),
+						end_date: moment(e.endDate).format("YYYY-MM-DD h:mm"),
 						duration: e.duration,
 						progress: e.progress,
 						parent: e.idparent,
-						type: e.type
 					}
 					return task
 				});
@@ -117,20 +110,25 @@ export class TaskComponent implements OnInit {
 							id: e.id,
 							source: e.parent,
 							target: e.id,
-							type: e.type
-
+							type: "1"
 						}
 						return link
 					}
 					);
 					links = links.concat(listDataFilter)
 				});
-
 				gantt.parse({ tasks, links });
-
+				gantt.eachTask(function (t) {
+					t.$open = true
+				});
+				gantt.render()
 			}
 		},
 		)
+
+
+
+
 		this._gantt = gantt;
 	}
 

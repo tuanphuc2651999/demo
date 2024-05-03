@@ -1,11 +1,11 @@
 export interface TaskModelMap {
 	id: number;
 	start_date: string;
+	duration: number;
 	text: string;
 	progress: number;
-	duration: number;
+	end_date: string;
 	parent: number;
-	type: string;
 }
 
 export interface Task {
@@ -14,8 +14,8 @@ export interface Task {
 	label: string;
 	type: string;
 	name: string;
-	startDate: Date;
-	endDate: Date;
+	startDate: string;
+	endDate: string;
 	duration: number;
 	progress: number;
 	isUnscheduled: boolean;

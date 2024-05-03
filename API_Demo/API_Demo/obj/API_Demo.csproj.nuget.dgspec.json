@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Demo\\API_Demo\\API_Demo\\API_Demo.csproj": {}
+    "E:\\BaiTest\\demo\\API_Demo\\API_Demo\\API_Demo.csproj": {}
   },
   "projects": {
-    "E:\\Demo\\API_Demo\\API_Demo\\API_Demo.csproj": {
+    "E:\\BaiTest\\demo\\API_Demo\\API_Demo\\API_Demo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Demo\\API_Demo\\API_Demo\\API_Demo.csproj",
+        "projectUniqueName": "E:\\BaiTest\\demo\\API_Demo\\API_Demo\\API_Demo.csproj",
         "projectName": "API_Demo",
-        "projectPath": "E:\\Demo\\API_Demo\\API_Demo\\API_Demo.csproj",
+        "projectPath": "E:\\BaiTest\\demo\\API_Demo\\API_Demo\\API_Demo.csproj",
         "packagesPath": "C:\\Users\\tuanp\\.nuget\\packages\\",
-        "outputPath": "E:\\Demo\\API_Demo\\API_Demo\\obj\\",
+        "outputPath": "E:\\BaiTest\\demo\\API_Demo\\API_Demo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tuanp\\AppData\\Roaming\\NuGet\\NuGet.Config",
